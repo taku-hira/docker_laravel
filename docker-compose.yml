@@ -4,7 +4,6 @@ services:
     build: ./infra/php
     volumes:
       - ./backend:/work
-
   web:
     image: nginx:1.20-alpine
     ports:
@@ -18,6 +17,20 @@ services:
     build: ./infra/mysql
     volumes:
       - db-store:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - db
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOSTS=db
+      - PMA_USER=phper
+      - PMA_PASSWORD=secret
+    ports:
+      - "8888:80"
+    volumes:
+      - ./infra/phpmyadmin/sessions:/sessions
 
 volumes:
   db-store:
