@@ -4,14 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Owner; // Eloquent エロクワント
+use Illuminate\Support\Facades\DB; // QueryBuilder クエリビルダー
+use Carbon\Carbon;
 
 class OwnersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
     public function __construct()
     {
@@ -20,8 +18,23 @@ class OwnersController extends Controller
 
     public function index()
     {
-        //
-        dd('オーナー一覧');
+        $data_now = Carbon::now();
+        $data_parse = Carbon::parse();
+
+        echo $data_now->year;
+        echo $data_parse;
+
+        $e_all = Owner::all();
+        $q_get = DB::table('owners')->select('name', 'created_at')->get();
+        // $q_first = DB::table('owners')->select('name')->first();
+        // $c_test = collect([
+        //     'name' => 'テスト',
+        // ]);
+
+        // var_dump($q_first);
+        // dd($e_all, $q_get, $q_first, $c_test);
+        return view('admin.owners.index', 
+        compact('e_all', 'q_get'));
     }
 
     /**
