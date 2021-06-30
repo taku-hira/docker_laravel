@@ -19,6 +19,6 @@ class Shop extends Model
 
     public function owner()
     {
-        return $this->belongTo(Owner::class);
+        return $this->belongsTo(Owner::class);
     }
 }
