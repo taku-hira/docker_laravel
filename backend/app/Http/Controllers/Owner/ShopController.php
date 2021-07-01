@@ -56,6 +56,8 @@ class ShopController extends Controller
         if(!is_null($imageFile) && $imageFile->isValid()){
             Storage::putFile('public/shops', $imageFile); // リサイズなしの場合
 
+            // $filename = ImageService::upload($imageFile, 'shops');
+            
             //リサイズありの場合      (エラーが出るためリサイズなしで処理します)
             // $fileName = uniqid(rand().'_');
             // $extension = $imageFile->extension();
